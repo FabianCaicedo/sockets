@@ -6,10 +6,15 @@ const socketController = (socket) => {
     })
 
     socket.on('enviar-mensaje', (payload, callback) => {
-        const id = 123456789
+        const id = payload
         callback(id)
 
+        socket.emit('enviar-mensaje', id)
         socket.broadcast.emit('mensaje-servidor', payload)
+    })
+
+    socket.on('chat:Typing', (data) => {
+        socket.broadcast.emit('chat:Typing', data)
     })
 }
 
